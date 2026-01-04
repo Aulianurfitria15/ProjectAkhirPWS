@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Konser - Info Konser</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>🎵 Info Konser</h1>
+            <div class="nav-links">
+                <a href="/user/dashboard">← Dashboard</a>
+                <span style="color: white;">Halo, <%= name %></span>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="header">
+                <h2>Daftar Konser Tersedia</h2>
+                <p>Temukan konser favorit Anda dan dapatkan tiketnya!</p>
+            </div>
+
+            <% if (error && error.length > 0) { %>
+                <div class="alert alert-error"><%= error %></div>
+            <% } %>
+
+            <% if (concerts.length === 0) { %>
+                <div class="empty-state">
+                    <h3>Belum ada konser tersedia</h3>
+                    <p>Silakan cek kembali nanti untuk update konser terbaru!</p>
+                </div>
+            <% } else { %>
+                <div class="concerts-grid">
+                    <% concerts.forEach(concert => { %>
+                        <div class="concert-card">
+                            <img src="<%= concert.image_url || 'https://via.placeholder.com/400x300' %>" 
+                                 alt="<%= concert.title %>" 
+                                 class="concert-image">
+                            
+                            <div class="concert-info">
+                                <div class="concert-title"><%= concert.title %></div>
+                                <div class="concert-artist">🎤 <%= concert.artist %></div>
+                                
+                                <div class="concert-details">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">📅</span>
+                                        <span><%= new Date(concert.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🕐</span>
+                                        <span><%= concert.time.substring(0, 5) %> WIB</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">📍</span>
+                                        <span><%= concert.location %></span>
+                                    </div>
+                                </div>
+
+                                <% if (concert.description) { %>
+                                    <div class="concert-description">
+                                        <%= concert.description %>
+                                    </div>
+                                <% } %>
+
+                                <div class="concert-price">
+                                    Rp <%= Number(concert.price).toLocaleString('id-ID') %>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

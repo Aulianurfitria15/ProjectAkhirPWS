@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Konser - Info Konser</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>🎵 Info Konser - Admin</h1>
+            <a href="/admin/dashboard">← Kembali</a>
+        </div>
+
+        <div class="content">
+            <div class="header">
+                <h2>Tambah Konser Baru</h2>
+            </div>
+
+            <% if (error && error.length > 0) { %>
+                <div class="alert alert-error"><%= error %></div>
+            <% } %>
+
+            <form method="POST" action="/admin/concerts/add" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Judul Konser *</label>
+                    <input type="text" name="title" required placeholder="Contoh: Rock Festival 2026">
+                </div>
+
+                <div class="form-group">
+                    <label>Artist/Penyanyi *</label>
+                    <input type="text" name="artist" required placeholder="Contoh: The Rockers">
+                </div>
+
+                <div class="form-group">
+                    <label>Tanggal *</label>
+                    <input type="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Waktu *</label>
+                    <input type="time" name="time" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Lokasi *</label>
+                    <input type="text" name="location" required placeholder="Contoh: Jakarta Convention Center">
+                </div>
+
+                <div class="form-group">
+                    <label>Harga Tiket (Rp) *</label>
+                    <input type="number" name="price" required placeholder="Contoh: 500000">
+                </div>
+
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea name="description" placeholder="Deskripsi konser..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Gambar Konser</label>
+                    <input type="file" name="image" accept="image/*">
+                    <small>Format: JPG, PNG, GIF (Maks 5MB)</small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="/admin/dashboard" class="btn btn-secondary">Batal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

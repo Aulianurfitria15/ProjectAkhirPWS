@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Info Konser</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>🎵 Info Konser - Admin</h1>
+            <div class="user-info">
+                <span>Halo, <%= name %></span>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="header">
+                <h2>Kelola Konser</h2>
+                <a href="/admin/concerts/add" class="btn btn-primary">+ Tambah Konser</a>
+            </div>
+
+            <% if (error && error.length > 0) { %>
+                <div class="alert alert-error"><%= error %></div>
+            <% } %>
+
+            <% if (success && success.length > 0) { %>
+                <div class="alert alert-success"><%= success %></div>
+            <% } %>
+
+            <% if (concerts.length === 0) { %>
+                <div class="empty-state">
+                    <h3>Belum ada konser</h3>
+                    <p>Klik tombol "Tambah Konser" untuk menambahkan konser baru</p>
+                </div>
+            <% } else { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Artist</th>
+                            <th>Tanggal</th>
+                            <th>Waktu</th>
+                            <th>Lokasi</th>
+                            <th>Harga</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% concerts.forEach((concert, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= concert.title %></td>
+                                <td><%= concert.artist %></td>
+                                <td><%= new Date(concert.date).toLocaleDateString('id-ID') %></td>
+                                <td><%= concert.time.substring(0, 5) %></td>
+                                <td><%= concert.location %></td>
+                                <td>Rp <%= Number(concert.price).toLocaleString('id-ID') %></td>
+                                <td>
+                                    <div class="actions">
+                                        <a href="/admin/concerts/edit/<%= concert.id %>" class="btn btn-warning">Edit</a>
+                                        <form method="POST" action="/admin/concerts/delete/<%= concert.id %>" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus konser ini?')">
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

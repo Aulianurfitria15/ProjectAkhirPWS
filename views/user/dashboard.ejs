@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard User - Info Konser</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>🎵 Info Konser</h1>
+            <div class="user-info">
+                <span>Halo, <%= name %></span>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="welcome">
+                <h2>Selamat Datang di Dashboard User!</h2>
+                <p>Untuk melihat daftar konser, Anda perlu generate dan memasukkan API Key</p>
+            </div>
+
+            <% if (error && error.length > 0) { %>
+                <div class="alert alert-error"><%= error %></div>
+            <% } %>
+
+            <% if (success && success.length > 0) { %>
+                <div class="alert alert-success"><%= success %></div>
+            <% } %>
+
+            <!-- Card Generate API Key -->
+            <div class="card">
+                <h3>🔑 Step 1: Generate API Key</h3>
+                
+                <% if (apiKey) { %>
+                    <div class="info-box">
+                        <p><strong>✓ Anda sudah memiliki API Key aktif!</strong></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>API Key Anda:</label>
+                        <div class="api-key-display"><%= apiKey.api_key %></div>
+                    </div>
+
+                    <p style="color: #718096; margin-bottom: 15px;">
+                        Salin API Key di atas dan masukkan pada form di bawah untuk akses daftar konser.
+                    </p>
+
+                    <form method="POST" action="/user/generate-api-key" style="display: inline;">
+                        <button type="submit" class="btn btn-primary" onclick="return confirm('Generate API Key baru akan menonaktifkan API Key lama. Lanjutkan?')">
+                            🔄 Generate API Key Baru
+                        </button>
+                    </form>
+                <% } else { %>
+                    <div class="info-box">
+                        <p>Anda belum memiliki API Key. Klik tombol di bawah untuk generate API Key baru.</p>
+                    </div>
+
+                    <form method="POST" action="/user/generate-api-key">
+                        <button type="submit" class="btn btn-primary">🔑 Generate API Key</button>
+                    </form>
+                <% } %>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Card Input API Key -->
+            <div class="card">
+                <h3>🎫 Step 2: Masukkan API Key untuk Akses Konser</h3>
+                
+                <div class="info-box">
+                    <p>Masukkan API Key Anda di bawah ini untuk mengakses daftar konser yang tersedia.</p>
+                </div>
+
+                <form method="POST" action="/user/validate-api-key">
+                    <div class="form-group">
+                        <label>Masukkan API Key:</label>
+                        <input 
+                            type="text" 
+                            name="api_key" 
+                            required 
+                            placeholder="Paste API Key Anda di sini..."
+                            <% if (apiKey) { %>value="<%= apiKey.api_key %>"<% } %>
+                        >
+                    </div>
+
+                    <button type="submit" class="btn btn-success">✓ Validasi & Lihat Daftar Konser</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
