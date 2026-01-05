@@ -45,4 +45,21 @@ router.get('/concerts/edit/:id', adminController.showEditConcert);
 router.post('/concerts/edit/:id', upload.single('image'), adminController.editConcert);
 router.post('/concerts/delete/:id', adminController.deleteConcert);
 
+// ========== Kelola User ==========
+
+const adminUserController = require('../controllers/adminUserController');
+
+// List semua user
+router.get('/users', adminUserController.listUsers);
+
+// Form edit user
+router.get('/users/edit/:id', adminUserController.showEditUser);
+
+// Proses edit user
+router.post('/users/edit/:id', adminUserController.editUser);
+
+// Hapus user
+router.get('/users/delete/:id', adminUserController.deleteUser);
+
+
 module.exports = router;
