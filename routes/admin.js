@@ -5,61 +5,132 @@ const path = require('path');
 const adminController = require('../controllers/adminController');
 const { isAdmin } = require('../middleware/auth');
 
-// Konfigurasi multer untuk upload gambar
+const fs = require('fs');
+
+// Pastikan folder ada
+const ensureDir = (dir) => {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+        console.log("Folder dibuat:", dir);
+    }
+};
+
+ensureDir('uploads/concerts');
+ensureDir('uploads/music');
+
+
+// =======================
+// 🔥 Konfigurasi Multer FULL (Gambar + Musik)
+// =======================
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/concerts/');
+        if (file.mimetype.startsWith("image/")) {
+            cb(null, 'uploads/concerts/');
+        } else if (file.mimetype === "audio/mpeg") {
+            cb(null, 'uploads/music/');
+        } else {
+            cb(new Error("Format file tidak didukung"), null);
+        }
     },
     filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, 'concert-' + uniqueSuffix + path.extname(file.originalname));
+        const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueName + path.extname(file.originalname));
     }
 });
+
+// Filter jenis file
+const fileFilter = (req, file, cb) => {
+    const imageTypes = /jpeg|jpg|png|gif/;
+    const musicTypes = /mp3/;
+
+    const ext = path.extname(file.originalname).toLowerCase();
+
+    if (file.mimetype.startsWith("image/") && imageTypes.test(ext)) {
+        cb(null, true);
+    } else if (file.mimetype === "audio/mpeg" && musicTypes.test(ext)) {
+        cb(null, true);
+    } else {
+        cb(new Error("Hanya file JPG/PNG/GIF dan MP3 yang diperbolehkan"));
+    }
+};
 
 const upload = multer({
-    storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
-    fileFilter: (req, file, cb) => {
-        const allowedTypes = /jpeg|jpg|png|gif/;
-        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype = allowedTypes.test(file.mimetype);
-
-        if (extname && mimetype) {
-            return cb(null, true);
-        } else {
-            cb(new Error('Hanya file gambar (JPG, PNG, GIF) yang diperbolehkan'));
-        }
-    }
+    storage,
+    limits: { fileSize: 20 * 1024 * 1024 }, // 20MB untuk musik
+    fileFilter
 });
 
-// Semua route membutuhkan autentikasi admin
+// =======================
+// 🔥 Semua route butuh admin
+// =======================
 router.use(isAdmin);
 
 // Dashboard admin
 router.get('/dashboard', adminController.dashboard);
 
-// CRUD Konser
+// =======================
+// 🔥 CRUD Konser (sudah support musik)
+// =======================
+
+// Tampilkan form tambah konser
 router.get('/concerts/add', adminController.showAddConcert);
-router.post('/concerts/add', upload.single('image'), adminController.addConcert);
+
+// Proses tambah konser (image + music)
+router.post(
+    '/concerts/add',
+    upload.fields([
+        { name: 'image', maxCount: 1 },
+        { name: 'music', maxCount: 1 }
+    ]),
+    adminController.addConcert
+);
+
+// Tampilkan form edit
 router.get('/concerts/edit/:id', adminController.showEditConcert);
-router.post('/concerts/edit/:id', upload.single('image'), adminController.editConcert);
+
+// Proses edit
+router.post(
+    '/concerts/edit/:id',
+    upload.fields([
+        { name: 'image', maxCount: 1 },
+        { name: 'music', maxCount: 1 }
+    ]),
+    adminController.editConcert
+);
+
+// Hapus konser
 router.post('/concerts/delete/:id', adminController.deleteConcert);
 
-// ========== Kelola User ==========
-
+// =======================
+// 🔥 Kelola User
+// =======================
 const adminUserController = require('../controllers/adminUserController');
 
-// List semua user
 router.get('/users', adminUserController.listUsers);
-
-// Form edit user
 router.get('/users/edit/:id', adminUserController.showEditUser);
-
-// Proses edit user
 router.post('/users/edit/:id', adminUserController.editUser);
-
-// Hapus user
 router.get('/users/delete/:id', adminUserController.deleteUser);
+
+
+// =========================
+//  FILTER AUDIO
+// =========================
+const allowedAudio = /mp3|wav|ogg|aac|flac/;
+
+const audioFilter = (req, file, cb) => {
+    const extname = allowedAudio.test(
+        path.extname(file.originalname).toLowerCase()
+    );
+    const mimetype = allowedAudio.test(file.mimetype);
+
+    if (extname && mimetype) {
+        return cb(null, true);
+    } else {
+        cb(new Error("Format audio tidak didukung. Gunakan MP3, WAV, OGG, AAC, atau FLAC."));
+    }
+};
+
 
 
 module.exports = router;

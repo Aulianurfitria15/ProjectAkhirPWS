@@ -68,4 +68,6 @@ app.listen(PORT, () => {
     console.log(`Server running on:http://localhost:${PORT}`);
 });
 
+app.use('/uploads/music', express.static('uploads/music'));
+
 module.exports = app;

@@ -5,7 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Konser - Info Konser</title>
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+        }
+        .audio-info {
+            color: #555;
+            font-size: 13px;
+        }
+        .form-group input[type="file"] {
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <div class="navbar">
@@ -23,6 +47,7 @@
             <% } %>
 
             <form method="POST" action="/admin/concerts/add" enctype="multipart/form-data">
+                
                 <div class="form-group">
                     <label>Judul Konser *</label>
                     <input type="text" name="title" required placeholder="Contoh: Rock Festival 2026">
@@ -58,10 +83,18 @@
                     <textarea name="description" placeholder="Deskripsi konser..."></textarea>
                 </div>
 
+                <!-- 🔥 Upload Gambar -->
                 <div class="form-group">
                     <label>Gambar Konser</label>
                     <input type="file" name="image" accept="image/*">
-                    <small>Format: JPG, PNG, GIF (Maks 5MB)</small>
+                    <small>Format: JPG, PNG, GIF (max 5MB)</small>
+                </div>
+
+                <!-- 🔥 Upload Musik (MP3) -->
+                <div class="form-group">
+                    <label>Upload Musik (MP3)</label>
+                    <input type="file" name="music" accept=".mp3">
+                    <small class="audio-info">Format: MP3 (max 20MB)</small>
                 </div>
 
                 <div class="form-actions">
@@ -69,6 +102,7 @@
                     <a href="/admin/dashboard" class="btn btn-secondary">Batal</a>
                 </div>
             </form>
+
         </div>
     </div>
 </body>
