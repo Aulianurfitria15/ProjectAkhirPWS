@@ -1,0 +1,60 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold">Kelola User</h2>
+        <a href="/admin/dashboard" class="btn btn-secondary">⬅ Kembali</a>
+    </div>
+
+    <% if (success) { %>
+        <div class="alert alert-success"><%= success %></div>
+    <% } %>
+
+    <% if (error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 60px;">ID</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th style="width: 120px;">Role</th>
+                        <th style="width: 160px;">Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td><%= user.name %></td>
+                            <td><%= user.email %></td>
+                            <td>
+                                <span class="badge <%= user.role === 'admin' ? 'bg-primary' : 'bg-success' %>">
+                                    <%= user.role %>
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/admin/users/edit/<%= user.id %>" class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+                                <a onclick="return confirm('Yakin ingin menghapus user ini?')"
+                                   href="/admin/users/delete/<%= user.id %>"
+                                   class="btn btn-danger btn-sm">
+                                    Hapus
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
