@@ -112,6 +112,98 @@ const userController = {
             req.flash('error', 'Terjadi kesalahan sistem');
             res.redirect('/user/dashboard');
         }
+    },
+
+    // API Explorer
+    apiExplorer: async (req, res) => {
+        try {
+            // Ambil API key user jika ada
+            const [apiKeys] = await db.query(
+                'SELECT * FROM api_keys WHERE user_id = ? AND is_active = TRUE ORDER BY created_at DESC LIMIT 1',
+                [req.session.userId]
+            );
+
+            res.render('user/api-explorer', {
+                name: req.session.name,
+                apiKey: apiKeys.length > 0 ? apiKeys[0] : null
+            });
+        } catch (error) {
+            console.error('API Explorer error:', error);
+            req.flash('error', 'Terjadi kesalahan sistem');
+            res.redirect('/user/dashboard');
+        }
+    },
+
+    testApiCall: async (req, res) => {
+        try {
+            const { api_key, endpoint, q, aqi, days, dt } = req.body;
+            const axios = require('axios');
+
+            if (!api_key) {
+                return res.json({
+                    success: false,
+                    error: 'API Key diperlukan'
+                });
+            }
+
+            // Default values
+            const apiEndpoint = endpoint || 'current';
+            const query = q || 'London';
+
+            // Build API URL with parameters
+            let apiUrl = `http://api.weatherapi.com/v1/${apiEndpoint}.json?key=${api_key}&q=${encodeURIComponent(query)}`;
+            
+            // Add additional parameters based on endpoint
+            if (aqi) {
+                apiUrl += `&aqi=${aqi}`;
+            }
+            if (days && apiEndpoint === 'forecast') {
+                apiUrl += `&days=${days}`;
+            }
+            if (dt && (apiEndpoint === 'history' || apiEndpoint === 'astronomy')) {
+                apiUrl += `&dt=${dt}`;
+            }
+
+            // Start time untuk tracking
+            const startTime = Date.now();
+
+            try {
+                const response = await axios.get(apiUrl, {
+                    validateStatus: () => true // Accept any status code
+                });
+
+                const duration = Date.now() - startTime;
+
+                // Return hasil
+                res.json({
+                    success: true,
+                    apiCall: apiUrl,
+                    status: response.status,
+                    statusText: response.statusText,
+                    duration: duration + 'ms',
+                    headers: response.headers,
+                    body: response.data
+                });
+            } catch (apiError) {
+                const duration = Date.now() - startTime;
+                res.json({
+                    success: false,
+                    apiCall: apiUrl,
+                    error: apiError.message,
+                    status: apiError.response?.status || 'Error',
+                    statusText: apiError.response?.statusText || 'Request Failed',
+                    duration: duration + 'ms',
+                    headers: apiError.response?.headers || {},
+                    body: apiError.response?.data || { error: apiError.message }
+                });
+            }
+        } catch (error) {
+            console.error('Test API call error:', error);
+            res.json({
+                success: false,
+                error: 'Terjadi kesalahan sistem: ' + error.message
+            });
+        }
     }
 };
 
