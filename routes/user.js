@@ -18,6 +18,9 @@ router.post('/validate-api-key', userController.validateApiKey);
 // Daftar konser (membutuhkan API key aktif)
 router.get('/concerts', userController.showConcerts);
 
+// Detail konser
+router.get('/concerts/:id', userController.showConcertDetail);
+
 // API Explorer
 router.get('/api-explorer', userController.apiExplorer);
 router.post('/api-explorer/test', userController.testApiCall);
