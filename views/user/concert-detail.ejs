@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Konser - <%= concert.title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>🎵 Info Konser</h1>
+            <div class="nav-links">
+                <a href="/user/concerts">← Kembali ke Daftar Konser</a>
+                <span style="color: white;">Halo, <%= name %></span>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <% if (error && error.length > 0) { %>
+                <div class="alert alert-error"><%= error %></div>
+            <% } %>
+            
+            <% if (success && success.length > 0) { %>
+                <div class="alert alert-success"><%= success %></div>
+            <% } %>
+
+            <div class="concert-detail-container">
+                <div class="concert-detail-card">
+                    <img src="<%= concert.image_url || 'https://via.placeholder.com/800x400' %>" 
+                         alt="<%= concert.title %>" 
+                         class="concert-detail-image">
+                    
+                    <div class="concert-detail-info">
+                        <h1 class="concert-detail-title"><%= concert.title %></h1>
+                        <div class="concert-detail-artist">🎤 <%= concert.artist %></div>
+                        
+                        <div class="concert-details-grid">
+                            <div class="detail-item-large">
+                                <span class="detail-icon">📅</span>
+                                <div>
+                                    <div class="detail-label">Tanggal</div>
+                                    <div class="detail-value"><%= new Date(concert.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></div>
+                                </div>
+                            </div>
+                            <div class="detail-item-large">
+                                <span class="detail-icon">🕐</span>
+                                <div>
+                                    <div class="detail-label">Waktu</div>
+                                    <div class="detail-value"><%= concert.time.substring(0, 5) %> WIB</div>
+                                </div>
+                            </div>
+                            <div class="detail-item-large">
+                                <span class="detail-icon">📍</span>
+                                <div>
+                                    <div class="detail-label">Lokasi</div>
+                                    <div class="detail-value"><%= concert.location %></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <% if (concert.description) { %>
+                            <div class="concert-detail-description">
+                                <h3>Deskripsi</h3>
+                                <p><%= concert.description %></p>
+                            </div>
+                        <% } %>
+
+                        <% if (concert.music_url) { %>
+                            <div class="concert-detail-music">
+                                <h3>Preview Musik</h3>
+                                <audio controls style="width: 100%;">
+                                    <source src="<%= concert.music_url %>" type="audio/mpeg">
+                                    Browser Anda tidak mendukung audio player.
+                                </audio>
+                            </div>
+                        <% } %>
+
+                        <div class="concert-detail-price">
+                            <div class="price-label">Harga Tiket</div>
+                            <div class="price-value">Rp <%= Number(concert.price).toLocaleString('id-ID') %></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
