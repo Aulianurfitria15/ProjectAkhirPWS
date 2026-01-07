@@ -35,50 +35,52 @@
             <% } else { %>
                 <div class="concerts-grid">
                     <% concerts.forEach(concert => { %>
-                        <div class="concert-card">
-                            <img src="<%= concert.image_url || 'https://via.placeholder.com/400x300' %>" 
-                                 alt="<%= concert.title %>" 
-                                 class="concert-image">
-                            
-                            <div class="concert-info">
-                                <div class="concert-title"><%= concert.title %></div>
-                                <div class="concert-artist">🎤 <%= concert.artist %></div>
+                        <a href="/user/concerts/<%= concert.id %>" style="text-decoration: none; color: inherit;">
+                            <div class="concert-card">
+                                <img src="<%= concert.image_url || 'https://via.placeholder.com/400x300' %>" 
+                                     alt="<%= concert.title %>" 
+                                     class="concert-image">
                                 
-                                <div class="concert-details">
-                                    <div class="detail-item">
-                                        <span class="detail-icon">📅</span>
-                                        <span><%= new Date(concert.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                                <div class="concert-info">
+                                    <div class="concert-title"><%= concert.title %></div>
+                                    <div class="concert-artist">🎤 <%= concert.artist %></div>
+                                    
+                                    <div class="concert-details">
+                                        <div class="detail-item">
+                                            <span class="detail-icon">📅</span>
+                                            <span><%= new Date(concert.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-icon">🕐</span>
+                                            <span><%= concert.time.substring(0, 5) %> WIB</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <span class="detail-icon">📍</span>
+                                            <span><%= concert.location %></span>
+                                        </div>
                                     </div>
-                                    <div class="detail-item">
-                                        <span class="detail-icon">🕐</span>
-                                        <span><%= concert.time.substring(0, 5) %> WIB</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-icon">📍</span>
-                                        <span><%= concert.location %></span>
-                                    </div>
-                                </div>
 
-                                <% if (concert.description) { %>
-                                    <div class="concert-description">
-                                        <%= concert.description %>
-                                    </div>
-                                <% } %>
+                                    <% if (concert.description) { %>
+                                        <div class="concert-description">
+                                            <%= concert.description %>
+                                        </div>
+                                    <% } %>
 
-                                <% if (concert.music_url) { %>
-                                    <div class="concert-music" style="margin-top: 10px;">
-                                        <audio controls style="width: 100%;">
-                                            <source src="<%= concert.music_url %>" type="audio/mpeg">
-                                            Browser Anda tidak mendukung audio player.
-                                        </audio>
-                                    </div>
-                                <% } %>
+                                    <% if (concert.music_url) { %>
+                                        <div class="concert-music" style="margin-top: 10px;">
+                                            <audio controls style="width: 100%;">
+                                                <source src="<%= concert.music_url %>" type="audio/mpeg">
+                                                Browser Anda tidak mendukung audio player.
+                                            </audio>
+                                        </div>
+                                    <% } %>
 
-                                <div class="concert-price">
-                                    Rp <%= Number(concert.price).toLocaleString('id-ID') %>
+                                    <div class="concert-price">
+                                        Rp <%= Number(concert.price).toLocaleString('id-ID') %>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     <% }) %>
                 </div>
             <% } %>
