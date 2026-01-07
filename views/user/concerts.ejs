@@ -65,6 +65,15 @@
                                     </div>
                                 <% } %>
 
+                                <% if (concert.music_url) { %>
+                                    <div class="concert-music" style="margin-top: 10px;">
+                                        <audio controls style="width: 100%;">
+                                            <source src="<%= concert.music_url %>" type="audio/mpeg">
+                                            Browser Anda tidak mendukung audio player.
+                                        </audio>
+                                    </div>
+                                <% } %>
+
                                 <div class="concert-price">
                                     Rp <%= Number(concert.price).toLocaleString('id-ID') %>
                                 </div>
