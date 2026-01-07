@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Explorer - Info Konser</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="container">
+
+    <div class="navbar">
+        <h1>🔍 API Explorer</h1>
+        <div class="user-info">
+            <span>Halo, <%= name %></span>
+            <a href="/user/dashboard">Kembali</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Masukkan API Key</h2>
+
+        <input type="text" id="apiKey" class="input"
+               value="<%= apiKey ? apiKey.api_key : '' %>"
+               placeholder="Masukkan API Key Anda">
+
+        <button class="btn btn-primary" onclick="showResponse()">Show Response</button>
+    </div>
+
+    <div id="result" style="margin-top:20px; display:none;">
+
+        <div class="card">
+            <h3>API Call</h3>
+            <pre id="apiCall"></pre>
+        </div>
+
+        <div class="card">
+            <h3>Response Code</h3>
+            <pre id="responseCode"></pre>
+        </div>
+
+        <div class="card">
+            <h3>Response Headers</h3>
+            <pre id="responseHeaders"></pre>
+        </div>
+
+        <div class="card">
+            <h3>Response Body</h3>
+            <pre id="responseBody"></pre>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    async function showResponse() {
+        const apiKey = document.getElementById("apiKey").value;
+
+        const res = await fetch("/user/api-explorer/test", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ api_key: apiKey })
+        });
+
+        const data = await res.json();
+        document.getElementById("result").style.display = "block";
+
+        document.getElementById("apiCall").innerText = data.apiCall || "-";
+        document.getElementById("responseCode").innerText = data.status || "-";
+        document.getElementById("responseHeaders").innerText = JSON.stringify(data.headers, null, 2);
+        document.getElementById("responseBody").innerText = JSON.stringify(data.body, null, 2);
+    }
+</script>
+
+</body>
+</html>
