@@ -114,6 +114,43 @@ const userController = {
         }
     },
 
+    // Tampilkan detail konser
+    showConcertDetail: async (req, res) => {
+        try {
+            const concertId = req.params.id;
+
+            // Cek apakah user punya API key yang aktif
+            const [apiKeys] = await db.query(
+                'SELECT * FROM api_keys WHERE user_id = ? AND is_active = TRUE',
+                [req.session.userId]
+            );
+
+            if (apiKeys.length === 0) {
+                req.flash('error', 'Anda harus memiliki API Key aktif untuk melihat detail konser');
+                return res.redirect('/user/dashboard');
+            }
+
+            // Ambil detail konser
+            const [concerts] = await db.query('SELECT * FROM concerts WHERE id = ?', [concertId]);
+
+            if (concerts.length === 0) {
+                req.flash('error', 'Konser tidak ditemukan');
+                return res.redirect('/user/concerts');
+            }
+
+            res.render('user/concert-detail', {
+                name: req.session.name,
+                concert: concerts[0],
+                success: req.flash('success'),
+                error: req.flash('error')
+            });
+        } catch (error) {
+            console.error('Show concert detail error:', error);
+            req.flash('error', 'Terjadi kesalahan sistem');
+            res.redirect('/user/concerts');
+        }
+    },
+
     // API Explorer
     apiExplorer: async (req, res) => {
         try {
