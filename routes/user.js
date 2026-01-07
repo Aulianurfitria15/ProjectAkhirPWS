@@ -18,6 +18,8 @@ router.post('/validate-api-key', userController.validateApiKey);
 // Daftar konser (membutuhkan API key aktif)
 router.get('/concerts', userController.showConcerts);
 
-
+// API Explorer
+router.get('/api-explorer', userController.apiExplorer);
+router.post('/api-explorer/test', userController.testApiCall);
 
 module.exports = router;
