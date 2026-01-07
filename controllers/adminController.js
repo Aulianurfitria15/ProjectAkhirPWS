@@ -38,12 +38,22 @@ const adminController = {
                 return res.redirect('/admin/concerts/add');
             }
 
-            // Handle gambar - jika ada file upload, gunakan path file, jika tidak gunakan placeholder
-            const image_url = req.file ? `/uploads/concerts/${req.file.filename}` : 'https://via.placeholder.com/400x300';
+            // Handle multiple files (image dan music)
+            let image_url = 'https://via.placeholder.com/400x300';
+            let music_url = null;
+
+            if (req.files) {
+                if (req.files.image && req.files.image[0]) {
+                    image_url = `/uploads/concerts/${req.files.image[0].filename}`;
+                }
+                if (req.files.music && req.files.music[0]) {
+                    music_url = `/uploads/music/${req.files.music[0].filename}`;
+                }
+            }
 
             await db.query(
-                'INSERT INTO concerts (title, artist, date, time, location, price, description, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                [title, artist, date, time, location, price, description || '', image_url]
+                'INSERT INTO concerts (title, artist, date, time, location, price, description, image_url, music_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                [title, artist, date, time, location, price, description || '', image_url, music_url]
             );
 
             req.flash('success', 'Konser berhasil ditambahkan');
@@ -90,20 +100,30 @@ const adminController = {
                 return res.redirect(`/admin/concerts/edit/${id}`);
             }
 
-            // Ambil data konser lama untuk mendapatkan image_url yang ada
-            const [concerts] = await db.query('SELECT image_url FROM concerts WHERE id = ?', [id]);
+            // Ambil data konser lama untuk mendapatkan image_url dan music_url yang ada
+            const [concerts] = await db.query('SELECT image_url, music_url FROM concerts WHERE id = ?', [id]);
             
             if (concerts.length === 0) {
                 req.flash('error', 'Konser tidak ditemukan');
                 return res.redirect('/admin/dashboard');
             }
 
-            // Handle gambar - jika ada file upload baru, gunakan yang baru, jika tidak pertahankan yang lama
-            const image_url = req.file ? `/uploads/concerts/${req.file.filename}` : concerts[0].image_url;
+            // Handle multiple files
+            let image_url = concerts[0].image_url;
+            let music_url = concerts[0].music_url;
+
+            if (req.files) {
+                if (req.files.image && req.files.image[0]) {
+                    image_url = `/uploads/concerts/${req.files.image[0].filename}`;
+                }
+                if (req.files.music && req.files.music[0]) {
+                    music_url = `/uploads/music/${req.files.music[0].filename}`;
+                }
+            }
 
             await db.query(
-                'UPDATE concerts SET title = ?, artist = ?, date = ?, time = ?, location = ?, price = ?, description = ?, image_url = ? WHERE id = ?',
-                [title, artist, date, time, location, price, description || '', image_url, id]
+                'UPDATE concerts SET title = ?, artist = ?, date = ?, time = ?, location = ?, price = ?, description = ?, image_url = ?, music_url = ? WHERE id = ?',
+                [title, artist, date, time, location, price, description || '', image_url, music_url, id]
             );
 
             req.flash('success', 'Konser berhasil diupdate');
