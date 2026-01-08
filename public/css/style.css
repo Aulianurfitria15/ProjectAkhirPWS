@@ -112,6 +112,60 @@ body.auth-page {
     text-decoration: underline;
 }
 
+.login-card {
+    width: 350px;
+    margin: 80px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Biar teks dan form rapi */
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.login-container .subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.form-group label {
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background: #6c63ff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.header {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
 /* ========================================
    ALERTS & MESSAGES
    ======================================== */
