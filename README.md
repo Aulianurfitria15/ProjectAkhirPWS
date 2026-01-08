@@ -14,6 +14,9 @@ HALAMAN API EXPLORER
 DAFTAR KONSER
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/773f0818-6e12-44db-a0d1-055502d6aa35" />
 
+DETAIL
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/0b791473-e22d-40da-9041-0189761d5a81" />
+
 DASHBOARD ADMIN
 <img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/a013ba66-d2fb-494b-b5d0-e4052965d43b" />
 
