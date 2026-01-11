@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi API - Info Konser</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/documentation.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>📚 Dokumentasi API</h1>
+            <div class="user-info">
+                <span>Halo, <%= name %></span>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="/user/dashboard">🏠 Dashboard</a>
+            <a href="/user/api-explorer">🔍 API Explorer</a>
+            <a href="/user/concerts">🎵 Daftar Konser</a>
+        </div>
+
+        <div class="doc-container">
+            <!-- Header -->
+            <div class="doc-header">
+                <h1>🎵 API Info Konser</h1>
+                <p>Dokumentasi lengkap untuk mengintegrasikan sistem Anda dengan API Info Konser</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="quick-links">
+                <a href="#getting-started" class="quick-link-card">
+                    <div class="icon">🚀</div>
+                    <div class="title">Memulai</div>
+                </a>
+                <a href="#web-usage" class="quick-link-card">
+                    <div class="icon">🌐</div>
+                    <div class="title">Panduan Web</div>
+                </a>
+                <a href="#api-explorer" class="quick-link-card">
+                    <div class="icon">🔍</div>
+                    <div class="title">API Explorer</div>
+                </a>
+                <a href="#postman" class="quick-link-card">
+                    <div class="icon">📮</div>
+                    <div class="title">Testing Postman</div>
+                </a>
+                <a href="#endpoints" class="quick-link-card">
+                    <div class="icon">🔌</div>
+                    <div class="title">API Reference</div>
+                </a>
+            </div>
+
+            <!-- Memulai -->
+            <div class="doc-section" id="getting-started">
+                <div class="section-title">
+                    <span class="section-icon">🚀</span>
+                    <span>Memulai - Generate API Key</span>
+                </div>
+                
+                <p>Sebelum dapat mengakses data konser, Anda harus memiliki <strong>API Key</strong> yang valid.</p>
+
+                <div class="endpoint-card">
+                    <h3>📝 Langkah 1: Login ke Dashboard</h3>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Buka halaman login: <code>http://localhost:3001/login</code></li>
+                        <li>Masukkan email dan password Anda</li>
+                        <li>Klik tombol <strong>"Login"</strong></li>
+                        <li>Anda akan diarahkan ke Dashboard User</li>
+                    </ol>
+                </div>
+
+                <div class="endpoint-card">
+                    <h3>🔑 Langkah 2: Generate API Key</h3>
+                    <p>Di halaman Dashboard, Anda akan melihat section <strong>"API Key Anda"</strong></p>
+                    
+                    <h4>Jika Belum Punya API Key:</h4>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Klik tombol <strong>"Generate API Key"</strong></li>
+                        <li>API Key baru akan muncul</li>
+                        <li><strong>Copy API Key</strong> tersebut (contoh: <code>koncr_1736592847abc</code>)</li>
+                        <li>Simpan API Key di tempat aman</li>
+                    </ol>
+
+                    <h4>Jika Sudah Punya API Key:</h4>
+                    <p>API Key Anda akan ditampilkan di Dashboard. Copy untuk digunakan.</p>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Penting:</strong>
+                        <ul style="margin: 5px 0 0 0; padding-left: 20px;">
+                            <li>Setiap user hanya bisa punya 1 API Key aktif</li>
+                            <li>Generate API Key baru akan menonaktifkan yang lama</li>
+                            <li>Jangan bagikan API Key Anda ke orang lain</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box" style="background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); border-left-color: #38ef7d;">
+                    <strong>✅ Selesai!</strong> Anda sekarang punya API Key dan siap mengakses data konser melalui:
+                    <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                        <li><strong>Website</strong> - Menu "Daftar Konser"</li>
+                        <li><strong>API Explorer</strong> - Testing langsung di browser</li>
+                        <li><strong>Postman</strong> - Testing API dengan tools profesional</li>
+                        <li><strong>Kode Program</strong> - Integrasi ke aplikasi Anda</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Panduan Penggunaan Web -->
+            <div class="doc-section" id="web-usage">
+                <div class="section-title">
+                    <span class="section-icon">🌐</span>
+                    <span>Panduan Penggunaan Web</span>
+                </div>
+
+                <div class="endpoint-card">
+                    <h3>1️⃣ Melihat Daftar Konser</h3>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Dari Dashboard, klik menu <strong>"🎵 Daftar Konser"</strong></li>
+                        <li>Atau buka: <code>http://localhost:3001/user/concerts</code></li>
+                        <li>Semua konser akan ditampilkan dalam bentuk cards</li>
+                        <li>Setiap card menampilkan: Nama, Artist, Genre, Tanggal, Lokasi, Harga</li>
+                    </ol>
+
+                    <div class="info-box">
+                        <strong>💡 Fitur yang tersedia:</strong>
+                        <ul style="margin: 5px 0 0 0; padding-left: 20px;">
+                            <li><strong>Filter by Genre</strong> - Rock, Pop, Jazz, Electronic</li>
+                            <li><strong>Search</strong> - Cari berdasarkan nama konser atau artist</li>
+                            <li><strong>Detail</strong> - Klik tombol "Detail" untuk info lengkap</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <h3>2️⃣ Melihat Detail Konser</h3>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Dari Daftar Konser, klik tombol <strong>"Detail"</strong> pada konser yang diinginkan</li>
+                        <li>Halaman detail akan menampilkan informasi lengkap:</li>
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>Gambar konser</li>
+                            <li>Nama konser & Artist</li>
+                            <li>Genre & Tanggal</li>
+                            <li>Lokasi & Harga tiket</li>
+                            <li>Deskripsi lengkap</li>
+                            <li>Music player (jika ada)</li>
+                        </ul>
+                    </ol>
+                </div>
+
+                <div class="endpoint-card">
+                    <h3>3️⃣ Menambah Konser Baru (Admin Only)</h3>
+                    <p>Jika Anda login sebagai <strong>admin</strong>, Anda bisa menambah konser baru:</p>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Dari Dashboard Admin, klik <strong>"Tambah Konser"</strong></li>
+                        <li>Isi form dengan data konser:
+                            <ul style="margin: 5px 0; padding-left: 20px;">
+                                <li>Judul Konser</li>
+                                <li>Artist/Penyanyi</li>
+                                <li>Tanggal & Waktu</li>
+                                <li>Lokasi</li>
+                                <li>Harga Tiket (Rp)</li>
+                                <li>Deskripsi</li>
+                                <li>Upload Gambar (JPG, PNG, GIF - max 5MB)</li>
+                                <li>Upload Musik MP3 (max 20MB)</li>
+                            </ul>
+                        </li>
+                        <li>Klik <strong>"Simpan"</strong></li>
+                        <li>Konser baru akan muncul di Daftar Konser</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Panduan API Explorer -->
+            <div class="doc-section" id="api-explorer">
+                <div class="section-title">
+                    <span class="section-icon">🔍</span>
+                    <span>Panduan API Explorer</span>
+                </div>
+                
+                <p>API Explorer adalah tools untuk testing API langsung dari browser tanpa perlu Postman.</p>
+
+                <div class="endpoint-card">
+                    <h3>🚀 Cara Menggunakan API Explorer</h3>
+                    
+                    <h4>Langkah 1: Buka API Explorer</h4>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Dari Dashboard, klik menu <strong>"🔍 API Explorer"</strong></li>
+                        <li>Atau buka: <code>http://localhost:3001/user/api-explorer</code></li>
+                    </ol>
+
+                    <h4>Langkah 2: Masukkan API Key</h4>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Di bagian atas, ada input field <strong>"API Key"</strong></li>
+                        <li>Paste API Key Anda (dari Dashboard)</li>
+                        <li>API Key akan otomatis disimpan untuk semua request</li>
+                    </ol>
+
+                    <h4>Langkah 3: Testing Endpoints</h4>
+                    <p>Ada 3 tab untuk testing berbagai endpoint:</p>
+
+                    <div class="param-row">
+                        <span class="param-name">Tab 1</span>
+                        <span class="badge-optional">Get All</span>
+                        <span>Mendapatkan semua konser - Klik "Get All Concerts"</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">Tab 2</span>
+                        <span class="badge-optional">Get By ID</span>
+                        <span>Get konser spesifik - Masukkan ID, klik "Get Concert"</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">Tab 3</span>
+                        <span class="badge-optional">Filter & Search</span>
+                        <span>Filter by genre atau search - Isi filter, klik "Search"</span>
+                    </div>
+
+                    <h4>Langkah 4: Lihat Response</h4>
+                    <p>Response API akan ditampilkan di bawah tombol dalam format JSON yang sudah di-format dengan syntax highlighting.</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Tips API Explorer:</strong>
+                    <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                        <li>Response hijau = Success (200)</li>
+                        <li>Response merah = Error (401, 404, 500)</li>
+                        <li>Status code ditampilkan di atas response</li>
+                        <li>JSON response auto-formatted untuk readability</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Jika Error 401 "API key tidak valid":</strong>
+                    <ol style="margin: 5px 0 0 0; padding-left: 20px;">
+                        <li>Pastikan API Key yang dimasukkan benar</li>
+                        <li>Copy ulang API Key dari Dashboard</li>
+                        <li>Jika masih error, generate API Key baru</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Panduan Testing Postman -->
+            <div class="doc-section" id="postman">
+                <div class="section-title">
+                    <span class="section-icon">📮</span>
+                    <span>Panduan Testing dengan Postman</span>
+                </div>
+                
+                <p>Postman adalah tools profesional untuk testing API. Berikut panduan lengkap menggunakan <strong>raw JSON body</strong>.</p>
+
+                <!-- Register -->
+                <div class="endpoint-card">
+                    <h3>
+                        <span class="method-badge method-post">POST</span>
+                        Test 1: Register User Baru
+                    </h3>
+                    <p><strong>Endpoint:</strong> <code>/api/auth/register</code></p>
+                    <p><strong>Kegunaan:</strong> Membuat akun user baru untuk mendapatkan akses ke API</p>
+
+                    <h4>📋 Langkah di Postman:</h4>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Buka Postman</li>
+                        <li>Buat request baru: Method <strong>POST</strong></li>
+                        <li>URL: <code>http://localhost:3001/api/auth/register</code></li>
+                        <li>Tab <strong>Body</strong> → Pilih <strong>raw</strong> → Dropdown pilih <strong>JSON</strong></li>
+                        <li>Masukkan JSON body:</li>
+                    </ol>
+
+                    <div class="code-block">{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123",
+  "confirmPassword": "password123",
+  "role": "user"
+}</div>
+
+                    <h4>6. Klik <strong>Send</strong></h4>
+                    <h4>Response (201 Created):</h4>
+                    <div class="code-block">{
+  "success": true,
+  "message": "Registrasi berhasil! Silakan login",
+  "data": {
+    "userId": 5,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user"
+  }
+}</div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Validasi:</strong>
+                        <ul style="margin: 5px 0 0 0; padding-left: 20px;">
+                            <li>Semua field wajib diisi</li>
+                            <li>Password minimal 6 karakter</li>
+                            <li>Password harus sama dengan confirmPassword</li>
+                            <li>Email harus unik (belum terdaftar)</li>
+                            <li>Role: <code>user</code> atau <code>admin</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Login -->
+                <div class="endpoint-card">
+                    <h3>
+                        <span class="method-badge method-post">POST</span>
+                        Test 2: Login & Dapat API Key
+                    </h3>
+                    <p><strong>Endpoint:</strong> <code>/api/auth/login</code></p>
+                    <p><strong>Kegunaan:</strong> Login dan langsung mendapatkan API Key untuk akses data konser</p>
+
+                    <h4>📋 Langkah di Postman:</h4>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Buat request baru: Method <strong>POST</strong></li>
+                        <li>URL: <code>http://localhost:3001/api/auth/login</code></li>
+                        <li>Tab <strong>Body</strong> → Pilih <strong>raw</strong> → <strong>JSON</strong></li>
+                        <li>Masukkan JSON body:</li>
+                    </ol>
+
+                    <div class="code-block">{
+  "email": "john@example.com",
+  "password": "password123"
+}</div>
+
+                    <h4>5. Klik <strong>Send</strong></h4>
+                    <h4>Response (200 OK):</h4>
+                    <div class="code-block">{
+  "success": true,
+  "message": "Login berhasil",
+  "data": {
+    "userId": 5,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user",
+    "apiKey": "koncr_abc123xyz456"  ← COPY API KEY INI!
+  }
+}</div>
+
+                    <div class="info-box" style="background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); border-left-color: #38ef7d;">
+                        <strong>✅ Penting:</strong> Response login akan memberikan <strong>API Key</strong>. 
+                        <strong>Copy API Key</strong> tersebut (contoh: <code>koncr_abc123xyz456</code>). 
+                        API Key ini akan digunakan untuk semua request selanjutnya!
+                    </div>
+                </div>
+
+                <!-- Get Concerts -->
+                <div class="endpoint-card">
+                    <h3>
+                        <span class="method-badge method-get">GET</span>
+                        Test 3: Melihat Semua Data Konser
+                    </h3>
+                    <p><strong>Endpoint:</strong> <code>/api/concerts</code></p>
+                    <p><strong>Kegunaan:</strong> Mendapatkan daftar semua konser dengan validasi API Key</p>
+
+                    <h4>📋 Langkah di Postman:</h4>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Buat request baru: Method <strong>GET</strong></li>
+                        <li>URL: <code>http://localhost:3001/api/concerts</code></li>
+                        <li>Tab <strong>Headers</strong> → Klik "Add"</li>
+                        <li>Tambahkan header:
+                            <div class="code-block" style="margin: 10px 0;">Key: X-API-Key
+Value: koncr_abc123xyz456  (paste API Key dari login)</div>
+                        </li>
+                        <li>Klik <strong>Send</strong></li>
+                    </ol>
+
+                    <h4>Response (200 OK):</h4>
+                    <div class="code-block">{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Rock Festival 2026",
+      "artist": "The Rockers",
+      "genre": "rock",
+      "date": "2026-03-15",
+      "time": "19:00",
+      "location": "Jakarta Stadium",
+      "price": 500000,
+      "description": "Festival rock terbesar",
+      "image_url": "/uploads/concerts/rock.jpg",
+      "music_url": "/uploads/music/rock-anthem.mp3"
+    },
+    ...
+  ]
+}</div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Jika Error 401 "API key tidak valid":</strong>
+                        <ol style="margin: 5px 0 0 0; padding-left: 20px;">
+                            <li>Pastikan header <code>X-API-Key</code> diketik dengan benar (case sensitive)</li>
+                            <li>Pastikan API Key yang di-paste benar (tidak ada spasi extra)</li>
+                            <li>Coba login ulang dan copy API Key baru</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Filter & Search -->
+                <div class="endpoint-card">
+                    <h3>
+                        <span class="method-badge method-get">GET</span>
+                        Test 4: Filter & Search Konser
+                    </h3>
+                    
+                    <h4>Filter by Genre:</h4>
+                    <p>URL: <code>http://localhost:3001/api/concerts?genre=rock</code></p>
+                    <p>Headers: <code>X-API-Key: your-api-key</code></p>
+                    <p>Genre valid: <code>rock</code>, <code>pop</code>, <code>jazz</code>, <code>electronic</code></p>
+
+                    <h4>Search by Keyword:</h4>
+                    <p>URL: <code>http://localhost:3001/api/concerts?search=Festival</code></p>
+                    <p>Akan mencari di field <code>name</code> dan <code>artist</code></p>
+
+                    <h4>Kombinasi Filter + Search:</h4>
+                    <div class="code-block">http://localhost:3001/api/concerts?genre=rock&search=Jakarta</div>
+                </div>
+
+                <!-- Get by ID -->
+                <div class="endpoint-card">
+                    <h3>
+                        <span class="method-badge method-get">GET</span>
+                        Test 5: Melihat Detail Konser Spesifik
+                    </h3>
+                    <p><strong>Endpoint:</strong> <code>/api/concerts/:id</code></p>
+
+                    <h4>📋 Langkah di Postman:</h4>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Method: <strong>GET</strong></li>
+                        <li>URL: <code>http://localhost:3001/api/concerts/1</code> (ganti 1 dengan ID yang diinginkan)</li>
+                        <li>Tab <strong>Headers</strong> → Add: <code>X-API-Key: your-api-key</code></li>
+                        <li>Klik <strong>Send</strong></li>
+                    </ol>
+
+                    <h4>Response (200 OK):</h4>
+                    <div class="code-block">{
+  "success": true,
+  "data": {
+    "id": 1,
+    "name": "Rock Festival 2026",
+    "artist": "The Rockers",
+    ...
+  }
+}</div>
+
+                    <h4>Response Error (404 Not Found):</h4>
+                    <div class="code-block">{
+  "success": false,
+  "error": "Konser tidak ditemukan"
+}</div>
+                </div>
+
+                <!-- Add Concert -->
+                <div class="endpoint-card">
+                    <h3>
+                        <span class="method-badge method-post">POST</span>
+                        Test 6: Menambah Konser Baru (Admin Only)
+                    </h3>
+                    <p><strong>Endpoint:</strong> <code>/api/concerts</code> <span style="background: #ff6b6b; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8em;">ADMIN ONLY</span></p>
+                    <p><strong>Kegunaan:</strong> Admin dapat menambah konser baru via API</p>
+
+                    <h4>📋 Langkah di Postman:</h4>
+                    <ol style="margin: 10px 0; padding-left: 25px;">
+                        <li>Pastikan Anda sudah register dengan <code>role: "admin"</code></li>
+                        <li>Login dan copy API Key admin</li>
+                        <li>Buat request baru: Method <strong>POST</strong></li>
+                        <li>URL: <code>http://localhost:3001/api/concerts</code></li>
+                        <li>Tab <strong>Headers</strong> → Add: <code>X-API-Key: admin-api-key</code></li>
+                        <li>Tab <strong>Body</strong> → Pilih <strong>raw</strong> → <strong>JSON</strong></li>
+                        <li>Masukkan JSON body:</li>
+                    </ol>
+
+                    <div class="code-block">{
+  "name": "Rock Festival 2026",
+  "artist": "The Rockers",
+  "genre": "rock",
+  "date": "2026-03-15",
+  "time": "19:00",
+  "location": "Jakarta Stadium",
+  "price": 500000,
+  "description": "Festival rock terbesar tahun ini",
+  "image_url": "/uploads/concerts/rock-festival.jpg",
+  "music_url": "/uploads/music/rock-anthem.mp3"
+}</div>
+
+                    <h4>8. Klik <strong>Send</strong></h4>
+                    <h4>Response (201 Created):</h4>
+                    <div class="code-block">{
+  "success": true,
+  "message": "Konser berhasil ditambahkan",
+  "data": {
+    "id": 15,
+    "name": "Rock Festival 2026",
+    "artist": "The Rockers",
+    "genre": "rock",
+    "date": "2026-03-15",
+    "time": "19:00",
+    "location": "Jakarta Stadium",
+    "price": 500000,
+    "description": "Festival rock terbesar tahun ini",
+    "image_url": "/uploads/concerts/rock-festival.jpg",
+    "music_url": "/uploads/music/rock-anthem.mp3",
+    "created_at": "2026-01-11T10:00:00.000Z"
+  }
+}</div>
+
+                    <h4>📝 Field Description:</h4>
+                    <div class="param-row">
+                        <span class="param-name">name</span>
+                        <span class="badge-required">Required</span>
+                        <span>Judul konser (contoh: Rock Festival 2026)</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">artist</span>
+                        <span class="badge-required">Required</span>
+                        <span>Nama artist/penyanyi</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">genre</span>
+                        <span class="badge-required">Required</span>
+                        <span>Nilai valid: <code>rock</code>, <code>pop</code>, <code>jazz</code>, <code>electronic</code></span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">date</span>
+                        <span class="badge-required">Required</span>
+                        <span>Format: <code>YYYY-MM-DD</code> (contoh: 2026-03-15)</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">time</span>
+                        <span class="badge-required">Required</span>
+                        <span>Format: <code>HH:MM</code> (contoh: 19:00, 20:30)</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">location</span>
+                        <span class="badge-required">Required</span>
+                        <span>Lokasi konser (contoh: Jakarta Stadium)</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">price</span>
+                        <span class="badge-required">Required</span>
+                        <span>Tipe: <code>number</code> - Harga tiket dalam Rupiah (contoh: 500000)</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">description</span>
+                        <span class="badge-optional">Optional</span>
+                        <span>Deskripsi konser</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">image_url</span>
+                        <span class="badge-optional">Optional</span>
+                        <span>Path gambar konser (format: JPG, PNG, GIF - max 5MB)</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">music_url</span>
+                        <span class="badge-optional">Optional</span>
+                        <span>Path musik MP3 (format: MP3 - max 20MB)</span>
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Hanya Admin:</strong> Endpoint ini hanya bisa diakses oleh user dengan role <code>admin</code>.
+                        Jika menggunakan API Key user biasa, akan error 403 Forbidden.
+                    </div>
+
+                    <div class="info-box">
+                        <strong>📁 Upload File (Gambar & Musik):</strong><br>
+                        Untuk upload file gambar dan musik, gunakan form di web (menu Admin > Tambah Konser). 
+                        Field <code>image_url</code> dan <code>music_url</code> berisi path file yang sudah di-upload sebelumnya.
+                    </div>
+                </div>
+
+                <!-- Complete Flow -->
+                <div class="info-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-left-color: #667eea;">
+                    <strong style="color: white;">🔄 Complete Testing Flow:</strong>
+                    <ol style="margin: 10px 0 0 0; padding-left: 25px; color: white;">
+                        <li><strong>Register</strong> user/admin → dapat userId</li>
+                        <li><strong>Login</strong> → dapat API Key</li>
+                        <li><strong>GET /api/concerts</strong> dengan API Key → lihat semua konser</li>
+                        <li><strong>GET /api/concerts/1</strong> → lihat detail konser ID 1</li>
+                        <li><strong>GET /api/concerts?genre=rock</strong> → filter by genre</li>
+                        <li><strong>POST /api/concerts</strong> (admin only) → tambah konser baru</li>
+                        <li><strong>GET /api/concerts</strong> lagi → verifikasi konser baru muncul</li>
+                    </ol>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Tips Postman:</strong>
+                    <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                        <li>Gunakan <strong>Environment Variables</strong>: <code>{{apiKey}}</code>, <code>{{baseUrl}}</code></li>
+                        <li>Di tab <strong>Tests</strong>, tambahkan script untuk auto-save API Key:
+                            <div class="code-block" style="margin: 10px 0;">// Save API Key from login response
+if (pm.response.json().data.apiKey) {
+    pm.environment.set("apiKey", pm.response.json().data.apiKey);
+}</div>
+                        </li>
+                        <li>Buat <strong>Collection</strong> dengan folder terpisah untuk Auth, Concerts, Admin</li>
+                        <li>Save semua request untuk reuse</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- API Reference -->
+            <div class="doc-section" id="endpoints">
+                <div class="section-title">
+                    <span class="section-icon">🔌</span>
+                    <span>API Reference</span>
+                </div>
+
+                <p>Dokumentasi lengkap semua endpoint yang tersedia di API Info Konser.</p>
+
+                <div class="info-box">
+                    <strong>ℹ️ Informasi API</strong><br>
+                    <strong>Base URL:</strong> <code>http://localhost:3001</code><br>
+                    <strong>Format:</strong> JSON<br>
+                    <strong>Auth:</strong> API Key di header <code>X-API-Key</code>
+                </div>
+
+                <!-- Get All Concerts -->
+                <div class="endpoint-card">
+                    <h3>
+                        <span class="method-badge method-get">GET</span>
+                        /api/concerts
+                    </h3>
+                    <p>Mendapatkan daftar semua konser</p>
+
+                    <h4>Parameters:</h4>
+                    <div class="param-row">
+                        <span class="param-name">genre</span>
+                        <span class="badge-optional">Optional</span>
+                        <span>Filter: rock, pop, jazz, electronic</span>
+                    </div>
+                    <div class="param-row">
+                        <span class="param-name">search</span>
+                        <span class="badge-optional">Optional</span>
+                        <span>Cari berdasarkan nama artis/judul</span>
+                    </div>
+
+                    <h4>Contoh Request:</h4>
+                    <div class="code-block">fetch('http://localhost:3001/api/concerts', {
+  headers: { 'X-API-Key': 'your-api-key' }
+})
+.then(res => res.json())
+.then(data => console.log(data));</div>
+
+                    <h4>Response:</h4>
+                    <div class="code-block">{
+  "success": true,
+  "data": [{
+    "id": 1,
+    "name": "Rock Festival 2026",
+    "artist": "The Rockers",
+    "genre": "rock",
+    "date": "2026-03-15",
+    "location": "Jakarta Stadium",
+    "price": 500000,
+    ...
+  }]
+}</div>
+                </div>
+
+                <!-- Get Concert by ID -->
+                <div class="endpoint-card">
+                    <h3>
+                        <span class="method-badge method-get">GET</span>
+                        /api/concerts/:id
+                    </h3>
+                    <p>Mendapatkan detail konser spesifik</p>
+
+                    <h4>Parameters:</h4>
+                    <div class="param-row">
+                        <span class="param-name">id</span>
+                        <span class="badge-required">Required</span>
+                        <span>ID konser (URL parameter)</span>
+                    </div>
+
+                    <h4>Contoh Request:</h4>
+                    <div class="code-block">fetch('http://localhost:3001/api/concerts/1', {
+  headers: { 'X-API-Key': 'your-api-key' }
+})
+.then(res => res.json())
+.then(data => console.log(data));</div>
+                </div>
+
+                <!-- Filter & Search -->
+                <div class="endpoint-card">
+                    <h3>🎸 Filter & Search</h3>
+                    
+                    <h4>Filter by Genre:</h4>
+                    <div class="code-block">GET /api/concerts?genre=rock</div>
+
+                    <h4>Search:</h4>
+                    <div class="code-block">GET /api/concerts?search=Rock Festival</div>
+
+                    <h4>Combine:</h4>
+                    <div class="code-block">GET /api/concerts?genre=pop&search=Jakarta</div>
+                </div>
+            </div>
+
+            <!-- Error Handling -->
+            <div class="doc-section">
+                <div class="section-title">
+                    <span class="section-icon">⚠️</span>
+                    <span>Error Handling</span>
+                </div>
+
+                <div class="response-example">
+                    <strong>Format Error Response:</strong>
+                    <div class="code-block" style="margin-top: 10px;">{ "success": false, "error": "Deskripsi error" }</div>
+                </div>
+
+                <h4>HTTP Status Codes:</h4>
+                <div class="param-row">
+                    <span class="param-name">200</span>
+                    <span style="color: #38ef7d; font-weight: 600;">Success</span>
+                    <span>Request berhasil</span>
+                </div>
+                <div class="param-row">
+                    <span class="param-name">401</span>
+                    <span style="color: #ff6b6b; font-weight: 600;">Unauthorized</span>
+                    <span>API Key tidak valid</span>
+                </div>
+                <div class="param-row">
+                    <span class="param-name">404</span>
+                    <span style="color: #ff9800; font-weight: 600;">Not Found</span>
+                    <span>Resource tidak ditemukan</span>
+                </div>
+                <div class="param-row">
+                    <span class="param-name">500</span>
+                    <span style="color: #f56565; font-weight: 600;">Server Error</span>
+                    <span>Kesalahan server</span>
+                </div>
+            </div>
+
+            <!-- Contoh Penggunaan -->
+            <div class="doc-section" id="examples">
+                <div class="section-title">
+                    <span class="section-icon">💻</span>
+                    <span>Contoh Penggunaan</span>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="showCode('js')">JavaScript</button>
+                    <button class="tab" onclick="showCode('react')">React</button>
+                    <button class="tab" onclick="showCode('python')">Python</button>
+                    <button class="tab" onclick="showCode('node')">Node.js</button>
+                </div>
+
+                <div id="code-js" class="code-content">
+                    <h4>JavaScript (Vanilla):</h4>
+                    <div class="code-block">const API_KEY = 'your-api-key';
+const BASE_URL = 'http://localhost:3001';
+
+async function getConcerts() {
+  const response = await fetch(`${BASE_URL}/api/concerts`, {
+    headers: { 'X-API-Key': API_KEY }
+  });
+  const result = await response.json();
+  
+  if (result.success) {
+    console.log(result.data);
+  }
+}</div>
+                </div>
+
+                <div id="code-react" class="code-content" style="display:none;">
+                    <h4>React:</h4>
+                    <div class="code-block">import { useState, useEffect } from 'react';
+
+function ConcertList() {
+  const [concerts, setConcerts] = useState([]);
+  const API_KEY = 'your-api-key';
+
+  useEffect(() => {
+    fetch('http://localhost:3001/api/concerts', {
+      headers: { 'X-API-Key': API_KEY }
+    })
+    .then(res => res.json())
+    .then(data => setConcerts(data.data));
+  }, []);
+
+  return (
+    <div>
+      {concerts.map(c => <div key={c.id}>{c.name}</div>)}
+    </div>
+  );
+}</div>
+                </div>
+
+                <div id="code-python" class="code-content" style="display:none;">
+                    <h4>Python:</h4>
+                    <div class="code-block">import requests
+
+API_KEY = 'your-api-key'
+headers = {'X-API-Key': API_KEY}
+
+response = requests.get(
+  'http://localhost:3001/api/concerts',
+  headers=headers
+)
+
+result = response.json()
+if result['success']:
+  for concert in result['data']:
+    print(concert['name'])</div>
+                </div>
+
+                <div id="code-node" class="code-content" style="display:none;">
+                    <h4>Node.js (Axios):</h4>
+                    <div class="code-block">const axios = require('axios');
+
+const API_KEY = 'your-api-key';
+
+axios.get('http://localhost:3001/api/concerts', {
+  headers: { 'X-API-Key': API_KEY }
+})
+.then(response => {
+  if (response.data.success) {
+    console.log(response.data.data);
+  }
+})
+.catch(error => console.error(error));</div>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <strong>✅ Best Practices:</strong>
+                    <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                        <li>Simpan API Key di environment variables</li>
+                        <li>Implementasikan error handling</li>
+                        <li>Cache data untuk efisiensi</li>
+                        <li>Gunakan API Explorer untuk testing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="doc-section" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <h3 style="color: white;">🎵 Mulai Build Aplikasi Anda!</h3>
+                <p>Gunakan API Explorer untuk testing dan eksperimen dengan API kami</p>
+                <a href="/user/api-explorer" style="display: inline-block; background: white; color: #667eea; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; margin-top: 15px;">
+                    Coba Sekarang →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showCode(lang) {
+            // Hide all code contents
+            document.querySelectorAll('.code-content').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected code content
+            document.getElementById(`code-${lang}`).style.display = 'block';
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
