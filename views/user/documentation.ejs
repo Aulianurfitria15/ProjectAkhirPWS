@@ -66,7 +66,7 @@
                 <div class="endpoint-card">
                     <h3>📝 Langkah 1: Login ke Dashboard</h3>
                     <ol style="margin: 10px 0; padding-left: 25px;">
-                        <li>Buka halaman login: <code>http://localhost:3001/login</code></li>
+                        <li>Buka halaman login: <code>http://localhost:3000/api/auth/login</code></li>
                         <li>Masukkan email dan password Anda</li>
                         <li>Klik tombol <strong>"Login"</strong></li>
                         <li>Anda akan diarahkan ke Dashboard User</li>
@@ -120,7 +120,7 @@
                     <h3>1️⃣ Melihat Daftar Konser</h3>
                     <ol style="margin: 10px 0; padding-left: 25px;">
                         <li>Dari Dashboard, klik menu <strong>"🎵 Daftar Konser"</strong></li>
-                        <li>Atau buka: <code>http://localhost:3001/user/concerts</code></li>
+                        <li>Atau buka: <code>http://localhost:3000/user/concerts</code></li>
                         <li>Semua konser akan ditampilkan dalam bentuk cards</li>
                         <li>Setiap card menampilkan: Nama, Artist, Genre, Tanggal, Lokasi, Harga</li>
                     </ol>
@@ -189,7 +189,7 @@
                     <h4>Langkah 1: Buka API Explorer</h4>
                     <ol style="margin: 10px 0; padding-left: 25px;">
                         <li>Dari Dashboard, klik menu <strong>"🔍 API Explorer"</strong></li>
-                        <li>Atau buka: <code>http://localhost:3001/user/api-explorer</code></li>
+                        <li>Atau buka: <code>http://localhost:3000/user/api-explorer</code></li>
                     </ol>
 
                     <h4>Langkah 2: Masukkan API Key</h4>
@@ -264,7 +264,7 @@
                     <ol style="margin: 10px 0; padding-left: 25px;">
                         <li>Buka Postman</li>
                         <li>Buat request baru: Method <strong>POST</strong></li>
-                        <li>URL: <code>http://localhost:3001/api/auth/register</code></li>
+                        <li>URL: <code>http://localhost:3000/api/auth/register</code></li>
                         <li>Tab <strong>Body</strong> → Pilih <strong>raw</strong> → Dropdown pilih <strong>JSON</strong></li>
                         <li>Masukkan JSON body:</li>
                     </ol>
@@ -314,7 +314,7 @@
                     <h4>📋 Langkah di Postman:</h4>
                     <ol style="margin: 10px 0; padding-left: 25px;">
                         <li>Buat request baru: Method <strong>POST</strong></li>
-                        <li>URL: <code>http://localhost:3001/api/auth/login</code></li>
+                        <li>URL: <code>http://localhost:3000/api/auth/login</code></li>
                         <li>Tab <strong>Body</strong> → Pilih <strong>raw</strong> → <strong>JSON</strong></li>
                         <li>Masukkan JSON body:</li>
                     </ol>
@@ -357,7 +357,7 @@
                     <h4>📋 Langkah di Postman:</h4>
                     <ol style="margin: 10px 0; padding-left: 25px;">
                         <li>Buat request baru: Method <strong>GET</strong></li>
-                        <li>URL: <code>http://localhost:3001/api/concerts</code></li>
+                        <li>URL: <code>http://localhost:3000/api/concerts</code></li>
                         <li>Tab <strong>Headers</strong> → Klik "Add"</li>
                         <li>Tambahkan header:
                             <div class="code-block" style="margin: 10px 0;">Key: X-API-Key
@@ -405,16 +405,16 @@ Value: koncr_abc123xyz456  (paste API Key dari login)</div>
                     </h3>
                     
                     <h4>Filter by Genre:</h4>
-                    <p>URL: <code>http://localhost:3001/api/concerts?genre=rock</code></p>
+                    <p>URL: <code>http://localhost:3000/api/concerts?genre=rock</code></p>
                     <p>Headers: <code>X-API-Key: your-api-key</code></p>
                     <p>Genre valid: <code>rock</code>, <code>pop</code>, <code>jazz</code>, <code>electronic</code></p>
 
                     <h4>Search by Keyword:</h4>
-                    <p>URL: <code>http://localhost:3001/api/concerts?search=Festival</code></p>
+                    <p>URL: <code>http://localhost:3000/api/concerts?search=Festival</code></p>
                     <p>Akan mencari di field <code>name</code> dan <code>artist</code></p>
 
                     <h4>Kombinasi Filter + Search:</h4>
-                    <div class="code-block">http://localhost:3001/api/concerts?genre=rock&search=Jakarta</div>
+                    <div class="code-block">http://localhost:3000/api/concerts?genre=rock&search=Jakarta</div>
                 </div>
 
                 <!-- Get by ID -->
@@ -428,7 +428,7 @@ Value: koncr_abc123xyz456  (paste API Key dari login)</div>
                     <h4>📋 Langkah di Postman:</h4>
                     <ol style="margin: 10px 0; padding-left: 25px;">
                         <li>Method: <strong>GET</strong></li>
-                        <li>URL: <code>http://localhost:3001/api/concerts/1</code> (ganti 1 dengan ID yang diinginkan)</li>
+                        <li>URL: <code>http://localhost:3000/api/concerts/1</code> (ganti 1 dengan ID yang diinginkan)</li>
                         <li>Tab <strong>Headers</strong> → Add: <code>X-API-Key: your-api-key</code></li>
                         <li>Klik <strong>Send</strong></li>
                     </ol>
@@ -465,7 +465,7 @@ Value: koncr_abc123xyz456  (paste API Key dari login)</div>
                         <li>Pastikan Anda sudah register dengan <code>role: "admin"</code></li>
                         <li>Login dan copy API Key admin</li>
                         <li>Buat request baru: Method <strong>POST</strong></li>
-                        <li>URL: <code>http://localhost:3001/api/concerts</code></li>
+                        <li>URL: <code>http://localhost:3000/api/concerts</code></li>
                         <li>Tab <strong>Headers</strong> → Add: <code>X-API-Key: admin-api-key</code></li>
                         <li>Tab <strong>Body</strong> → Pilih <strong>raw</strong> → <strong>JSON</strong></li>
                         <li>Masukkan JSON body:</li>
@@ -610,7 +610,7 @@ if (pm.response.json().data.apiKey) {
 
                 <div class="info-box">
                     <strong>ℹ️ Informasi API</strong><br>
-                    <strong>Base URL:</strong> <code>http://localhost:3001</code><br>
+                    <strong>Base URL:</strong> <code>http://localhost:3000</code><br>
                     <strong>Format:</strong> JSON<br>
                     <strong>Auth:</strong> API Key di header <code>X-API-Key</code>
                 </div>
@@ -636,7 +636,7 @@ if (pm.response.json().data.apiKey) {
                     </div>
 
                     <h4>Contoh Request:</h4>
-                    <div class="code-block">fetch('http://localhost:3001/api/concerts', {
+                    <div class="code-block">fetch('http://localhost:3000/api/concerts', {
   headers: { 'X-API-Key': 'your-api-key' }
 })
 .then(res => res.json())
@@ -674,7 +674,7 @@ if (pm.response.json().data.apiKey) {
                     </div>
 
                     <h4>Contoh Request:</h4>
-                    <div class="code-block">fetch('http://localhost:3001/api/concerts/1', {
+                    <div class="code-block">fetch('http://localhost:3000/api/concerts/1', {
   headers: { 'X-API-Key': 'your-api-key' }
 })
 .then(res => res.json())
@@ -748,7 +748,7 @@ if (pm.response.json().data.apiKey) {
                 <div id="code-js" class="code-content">
                     <h4>JavaScript (Vanilla):</h4>
                     <div class="code-block">const API_KEY = 'your-api-key';
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = 'http://localhost:3000';
 
 async function getConcerts() {
   const response = await fetch(`${BASE_URL}/api/concerts`, {
@@ -771,7 +771,7 @@ function ConcertList() {
   const API_KEY = 'your-api-key';
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/concerts', {
+    fetch('http://localhost:3000/api/concerts', {
       headers: { 'X-API-Key': API_KEY }
     })
     .then(res => res.json())
@@ -794,7 +794,7 @@ API_KEY = 'your-api-key'
 headers = {'X-API-Key': API_KEY}
 
 response = requests.get(
-  'http://localhost:3001/api/concerts',
+  'http://localhost:3000/api/concerts',
   headers=headers
 )
 
@@ -810,7 +810,7 @@ if result['success']:
 
 const API_KEY = 'your-api-key';
 
-axios.get('http://localhost:3001/api/concerts', {
+axios.get('http://localhost:3000/api/concerts', {
   headers: { 'X-API-Key': API_KEY }
 })
 .then(response => {
