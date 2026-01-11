@@ -8,6 +8,7 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/user');
+const apiRoutes = require('./routes/api');
 
 // Initialize app
 const app = express();
@@ -40,6 +41,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/user', userRoutes);
+app.use('/api', apiRoutes);
 
 // Home route - redirect to login
 app.get('/', (req, res) => {
