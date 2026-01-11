@@ -241,6 +241,19 @@ const userController = {
                 error: 'Terjadi kesalahan sistem: ' + error.message
             });
         }
+    },
+
+    // Halaman dokumentasi API
+    documentation: async (req, res) => {
+        try {
+            res.render('user/documentation', {
+                name: req.session.name
+            });
+        } catch (error) {
+            console.error('Documentation error:', error);
+            req.flash('error', 'Terjadi kesalahan sistem');
+            res.redirect('/user/dashboard');
+        }
     }
 };
 
