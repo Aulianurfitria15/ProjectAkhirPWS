@@ -6,6 +6,11 @@
     <title>API Explorer - Info Konser</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
         .api-explorer-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -14,88 +19,109 @@
 
         .explorer-card {
             background: white;
-            border-radius: 8px;
-            padding: 25px;
+            border-radius: 15px;
+            padding: 30px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .explorer-title {
-            font-size: 24px;
-            font-weight: 600;
+            font-size: 28px;
+            font-weight: 700;
             margin-bottom: 10px;
-            color: #2d3748;
+            color: #667eea;
         }
 
         .explorer-subtitle {
             color: #718096;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
         .form-row {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-row label {
             display: block;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #2d3748;
         }
 
         .form-row input, .form-row select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e0;
-            border-radius: 6px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
             font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-row input:focus, .form-row select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .tabs {
             display: flex;
-            gap: 5px;
-            border-bottom: 2px solid #e2e8f0;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin: 25px 0;
             flex-wrap: wrap;
         }
 
         .tab {
-            padding: 10px 20px;
-            cursor: pointer;
+            padding: 12px 24px;
+            background: #e9ecef;
             border: none;
-            background: transparent;
-            color: #4a5568;
-            font-weight: 500;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
             transition: all 0.3s;
+            font-size: 14px;
         }
 
         .tab:hover {
-            color: #2563eb;
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
         }
 
         .tab.active {
-            color: #2563eb;
-            border-bottom: 2px solid #2563eb;
-            margin-bottom: -2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
         .tab-content {
             display: none;
+            padding: 20px 0;
         }
 
         .tab-content.active {
             display: block;
         }
 
+        .tab-content h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .tab-content p {
+            color: #718096;
+            margin-bottom: 20px;
+        }
+
         .param-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin: 20px 0;
         }
 
         .param-table th, .param-table td {
             text-align: left;
-            padding: 10px;
+            padding: 12px;
             border-bottom: 1px solid #e2e8f0;
         }
 
@@ -105,26 +131,35 @@
             color: #2d3748;
         }
 
-        .btn-show-response {
-            background: #4c6ef5;
-            color: white;
-            padding: 12px 30px;
-            border: none;
+        .param-table input, .param-table select {
+            padding: 8px;
+            border: 2px solid #e2e8f0;
             border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn-show-response {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 25px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
         .btn-show-response:hover {
-            background: #3b5bdb;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
         }
 
         .btn-show-response:disabled {
             background: #cbd5e0;
             cursor: not-allowed;
+            transform: none;
         }
 
         .result-section {
@@ -133,38 +168,41 @@
 
         .result-card {
             background: #f7fafc;
-            border-radius: 6px;
+            border-radius: 12px;
             padding: 20px;
             margin-bottom: 15px;
-            border-left: 4px solid #4c6ef5;
+            border-left: 5px solid #667eea;
         }
 
         .result-card h3 {
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #2d3748;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .result-card pre {
-            background: #2d3748;
+            background: #1e1e1e;
             color: #e2e8f0;
-            padding: 15px;
-            border-radius: 6px;
+            padding: 20px;
+            border-radius: 8px;
             overflow-x: auto;
             font-size: 13px;
-            line-height: 1.5;
+            line-height: 1.6;
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', monospace;
         }
 
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             border: 3px solid #f3f3f3;
-            border-top: 3px solid #4c6ef5;
+            border-top: 3px solid #667eea;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-left: 10px;
+            vertical-align: middle;
         }
 
         @keyframes spin {
@@ -173,18 +211,19 @@
         }
 
         .status-success {
-            color: #16a34a;
+            color: #38ef7d;
             font-weight: 600;
         }
 
         .status-error {
-            color: #dc2626;
+            color: #ff6b6b;
             font-weight: 600;
         }
 
         .link {
-            color: #4c6ef5;
+            color: #667eea;
             text-decoration: none;
+            font-weight: 600;
         }
 
         .link:hover {
@@ -200,370 +239,246 @@
         <h1>🔍 Interactive API Explorer</h1>
         <div class="user-info">
             <span>Halo, <%= name %></span>
+            <a href="/user/documentation" style="margin-right: 15px;">Dokumentasi</a>
             <a href="/user/dashboard">Kembali</a>
         </div>
     </div>
 
     <div class="explorer-card">
-        <div class="explorer-title">aulAPI.com Interactive API Explorer</div>
+        <div class="explorer-title">🎵 Info Konser API Explorer</div>
         <div class="explorer-subtitle">
-            aulAPI.com Interactive API explorer or IO Docs allows you to test our APIs and methods. 
-            It returns response headers, response code and response body.
+            Test API endpoints secara interaktif. Masukkan API Key Anda dan pilih endpoint untuk mencoba.
             <br>
-            For complete documentation please visit our 
-            <a href="https://www.weatherapi.com/docs/" class="link" target="_blank">Weather API Documentation</a> section.
+            Untuk dokumentasi lengkap, kunjungi 
+            <a href="/user/documentation" class="link">halaman dokumentasi</a>.
         </div>
 
         <div class="form-row">
-            <label>Your API Key</label>
+            <label>🔑 Your API Key</label>
             <input type="text" id="apiKey" 
                    value="<%= apiKey ? apiKey.api_key : '' %>"
-                   placeholder="Enter your API Key">
-        </div>
-
-        <div class="form-row">
-            <label>Protocol</label>
-            <select id="protocol">
-                <option value="http">HTTP</option>
-                <option value="https">HTTPS</option>
-            </select>
-        </div>
-
-        <div class="form-row">
-            <label>Format</label>
-            <select id="format">
-                <option value="json">JSON</option>
-                <option value="xml">XML</option>
-            </select>
+                   placeholder="Masukkan API Key Anda">
         </div>
 
         <!-- Tabs untuk berbagai endpoint -->
         <div class="tabs">
-            <button class="tab active" onclick="switchTab('current')">Current</button>
-            <button class="tab" onclick="switchTab('forecast')">Forecast</button>
-            <button class="tab" onclick="switchTab('search')">Search/Autocomplete</button>
-            <button class="tab" onclick="switchTab('history')">History</button>
-            <button class="tab" onclick="switchTab('astronomy')">Astronomy</button>
-            <button class="tab" onclick="switchTab('timezone')">Time Zone</button>
+            <button class="tab active" onclick="switchTab('concerts')">📋 Get All Concerts</button>
+            <button class="tab" onclick="switchTab('concertById')">🎤 Get Concert By ID</button>
+            <button class="tab" onclick="switchTab('filter')">🔍 Filter & Search</button>
         </div>
 
-        <!-- Tab Content: Current -->
-        <div id="current" class="tab-content active">
+        <!-- Tab Content: Get All Concerts -->
+        <div id="concerts" class="tab-content active">
+            <h3>GET /api/concerts</h3>
+            <p>Mendapatkan daftar semua konser yang tersedia.</p>
+            
+            <button class="btn-show-response" onclick="testApi('concerts')">
+                ▶ Test API
+            </button>
+        </div>
+
+        <!-- Tab Content: Get Concert By ID -->
+        <div id="concertById" class="tab-content">
+            <h3>GET /api/concerts/:id</h3>
+            <p>Mendapatkan detail konser berdasarkan ID.</p>
+            
             <table class="param-table">
                 <thead>
                     <tr>
                         <th>Parameter</th>
                         <th>Value</th>
-                        <th>Type</th>
-                        <th>Location</th>
                         <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>q</strong></td>
-                        <td><input type="text" id="q_current" value="London" style="width:100%;"></td>
-                        <td>string</td>
-                        <td>query</td>
-                        <td>Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name</td>
+                        <td><strong>id</strong></td>
+                        <td><input type="number" id="concertId" value="1" style="width:100%;"></td>
+                        <td>ID konser yang ingin diakses</td>
                     </tr>
+                </tbody>
+            </table>
+
+            <button class="btn-show-response" onclick="testApi('concertById')">
+                ▶ Test API
+            </button>
+        </div>
+
+        <!-- Tab Content: Filter & Search -->
+        <div id="filter" class="tab-content">
+            <h3>GET /api/concerts (with filters)</h3>
+            <p>Filter dan search konser berdasarkan genre atau keyword.</p>
+            
+            <table class="param-table">
+                <thead>
                     <tr>
-                        <td><strong>aqi</strong></td>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>genre</strong></td>
                         <td>
-                            <select id="aqi_current" style="width:100%;">
-                                <option value="no">no</option>
-                                <option value="yes">yes</option>
+                            <select id="genre" style="width:100%;">
+                                <option value="">-- No Filter --</option>
+                                <option value="rock">Rock</option>
+                                <option value="pop">Pop</option>
+                                <option value="jazz">Jazz</option>
+                                <option value="electronic">Electronic</option>
                             </select>
                         </td>
-                        <td>string</td>
-                        <td>query</td>
-                        <td>Get air quality data</td>
+                        <td>Filter berdasarkan genre musik</td>
+                    </tr>
+                    <tr>
+                        <td><strong>search</strong></td>
+                        <td><input type="text" id="search" placeholder="Cari nama artis atau judul" style="width:100%;"></td>
+                        <td>Cari berdasarkan nama artis atau judul konser</td>
                     </tr>
                 </tbody>
             </table>
+
+            <button class="btn-show-response" onclick="testApi('filter')">
+                ▶ Test API
+            </button>
         </div>
 
-        <!-- Tab Content: Forecast -->
-        <div id="forecast" class="tab-content">
-            <table class="param-table">
-                <thead>
-                    <tr>
-                        <th>Parameter</th>
-                        <th>Value</th>
-                        <th>Type</th>
-                        <th>Location</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>q</strong></td>
-                        <td><input type="text" id="q_forecast" value="London" style="width:100%;"></td>
-                        <td>string</td>
-                        <td>query</td>
-                        <td>Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude or city name</td>
-                    </tr>
-                    <tr>
-                        <td><strong>days</strong></td>
-                        <td><input type="number" id="days_forecast" value="3" min="1" max="10" style="width:100%;"></td>
-                        <td>number</td>
-                        <td>query</td>
-                        <td>Number of days of forecast required (1-10)</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <!-- Result Section -->
+        <div id="result" class="result-section" style="display:none;">
+            <div class="result-card">
+                <h3>📡 API Call</h3>
+                <pre id="apiCall">-</pre>
+            </div>
 
-        <!-- Tab Content: Search -->
-        <div id="search" class="tab-content">
-            <table class="param-table">
-                <thead>
-                    <tr>
-                        <th>Parameter</th>
-                        <th>Value</th>
-                        <th>Type</th>
-                        <th>Location</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>q</strong></td>
-                        <td><input type="text" id="q_search" value="Lond" style="width:100%;"></td>
-                        <td>string</td>
-                        <td>query</td>
-                        <td>Query parameter based on which data is sent back. Min 3 characters.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <div class="result-card">
+                <h3>📊 Response Code & Duration</h3>
+                <pre id="responseCode">-</pre>
+            </div>
 
-        <!-- Tab Content: History -->
-        <div id="history" class="tab-content">
-            <table class="param-table">
-                <thead>
-                    <tr>
-                        <th>Parameter</th>
-                        <th>Value</th>
-                        <th>Type</th>
-                        <th>Location</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>q</strong></td>
-                        <td><input type="text" id="q_history" value="London" style="width:100%;"></td>
-                        <td>string</td>
-                        <td>query</td>
-                        <td>Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude or city name</td>
-                    </tr>
-                    <tr>
-                        <td><strong>dt</strong></td>
-                        <td><input type="date" id="dt_history" value="2024-01-01" style="width:100%;"></td>
-                        <td>date</td>
-                        <td>query</td>
-                        <td>Date in yyyy-MM-dd format</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <div class="result-card">
+                <h3>📋 Response Headers</h3>
+                <pre id="responseHeaders">-</pre>
+            </div>
 
-        <!-- Tab Content: Astronomy -->
-        <div id="astronomy" class="tab-content">
-            <table class="param-table">
-                <thead>
-                    <tr>
-                        <th>Parameter</th>
-                        <th>Value</th>
-                        <th>Type</th>
-                        <th>Location</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>q</strong></td>
-                        <td><input type="text" id="q_astronomy" value="London" style="width:100%;"></td>
-                        <td>string</td>
-                        <td>query</td>
-                        <td>Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude or city name</td>
-                    </tr>
-                    <tr>
-                        <td><strong>dt</strong></td>
-                        <td><input type="date" id="dt_astronomy" value="" style="width:100%;"></td>
-                        <td>date</td>
-                        <td>query</td>
-                        <td>Date in yyyy-MM-dd format (optional, defaults to today)</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Tab Content: Time Zone -->
-        <div id="timezone" class="tab-content">
-            <table class="param-table">
-                <thead>
-                    <tr>
-                        <th>Parameter</th>
-                        <th>Value</th>
-                        <th>Type</th>
-                        <th>Location</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>q</strong></td>
-                        <td><input type="text" id="q_timezone" value="London" style="width:100%;"></td>
-                        <td>string</td>
-                        <td>query</td>
-                        <td>Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude or city name</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <button class="btn-show-response" id="showResponseBtn" onclick="showResponse()">
-            Show Response
-        </button>
-    </div>
-
-    <!-- Result Section -->
-    <div id="result" class="result-section" style="display:none;">
-        <div class="result-card">
-            <h3>📡 API Call</h3>
-            <pre id="apiCall"></pre>
-        </div>
-
-        <div class="result-card">
-            <h3>📊 Response Code</h3>
-            <pre id="responseCode"></pre>
-        </div>
-
-        <div class="result-card">
-            <h3>📋 Response Headers</h3>
-            <pre id="responseHeaders"></pre>
-        </div>
-
-        <div class="result-card">
-            <h3>📦 Response Body</h3>
-            <pre id="responseBody"></pre>
+            <div class="result-card">
+                <h3>📦 Response Body</h3>
+                <pre id="responseBody">-</pre>
+            </div>
         </div>
     </div>
-
 </div>
 
 <script>
-    let currentTab = 'current';
-
     function switchTab(tabName) {
-        // Hide all tabs
-        const tabs = document.querySelectorAll('.tab-content');
-        tabs.forEach(tab => tab.classList.remove('active'));
+        // Hide all tab contents
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(c => c.classList.remove('active'));
 
-        // Remove active class from all tab buttons
-        const tabButtons = document.querySelectorAll('.tab');
-        tabButtons.forEach(btn => btn.classList.remove('active'));
+        // Remove active class from all tabs
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(t => t.classList.remove('active'));
 
-        // Show selected tab
+        // Show selected tab and mark as active
         document.getElementById(tabName).classList.add('active');
         event.target.classList.add('active');
-
-        currentTab = tabName;
     }
 
-    async function showResponse() {
-        const apiKey = document.getElementById("apiKey").value.trim();
-        const protocol = document.getElementById("protocol").value;
-
+    async function testApi(endpoint) {
+        const apiKey = document.getElementById('apiKey').value.trim();
+        
         if (!apiKey) {
-            alert("Mohon masukkan API Key terlebih dahulu!");
+            alert('Silakan masukkan API Key terlebih dahulu!');
             return;
         }
 
-        // Disable button dan tampilkan loading
-        const btn = document.getElementById("showResponseBtn");
+        const btn = event.target;
         btn.disabled = true;
-        btn.innerHTML = 'Loading<span class="loading"></span>';
+        btn.innerHTML = 'Loading... <span class="loading"></span>';
 
-        // Ambil parameters sesuai tab yang aktif
-        let endpoint = currentTab;
-        let params = {};
+        // Gunakan URL relatif agar otomatis mengikuti port yang digunakan
+        let url = '/api/concerts';
+        let params = new URLSearchParams();
 
-        switch(currentTab) {
-            case 'current':
-                params.q = document.getElementById("q_current").value;
-                params.aqi = document.getElementById("aqi_current").value;
+        // Build URL berdasarkan endpoint
+        switch(endpoint) {
+            case 'concerts':
+                // Default: get all concerts
                 break;
-            case 'forecast':
-                endpoint = 'forecast';
-                params.q = document.getElementById("q_forecast").value;
-                params.days = document.getElementById("days_forecast").value;
+            
+            case 'concertById':
+                const concertId = document.getElementById('concertId').value;
+                if (concertId) {
+                    url += '/' + concertId;
+                }
                 break;
-            case 'search':
-                endpoint = 'search';
-                params.q = document.getElementById("q_search").value;
-                break;
-            case 'history':
-                endpoint = 'history';
-                params.q = document.getElementById("q_history").value;
-                params.dt = document.getElementById("dt_history").value;
-                break;
-            case 'astronomy':
-                endpoint = 'astronomy';
-                params.q = document.getElementById("q_astronomy").value;
-                const dt = document.getElementById("dt_astronomy").value;
-                if (dt) params.dt = dt;
-                break;
-            case 'timezone':
-                endpoint = 'timezone';
-                params.q = document.getElementById("q_timezone").value;
+            
+            case 'filter':
+                const genre = document.getElementById('genre').value;
+                const search = document.getElementById('search').value;
+                
+                if (genre) params.append('genre', genre);
+                if (search) params.append('search', search);
+                
+                if (params.toString()) {
+                    url += '?' + params.toString();
+                }
                 break;
         }
 
+        const startTime = Date.now();
+
         try {
-            const res = await fetch("/user/api-explorer/test", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    api_key: apiKey,
-                    endpoint: endpoint,
-                    ...params
-                })
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'X-API-Key': apiKey,
+                    'Content-Type': 'application/json'
+                }
             });
 
-            const data = await res.json();
+            const duration = Date.now() - startTime;
+            const data = await response.json();
 
             // Tampilkan hasil
-            document.getElementById("result").style.display = "block";
+            document.getElementById('result').style.display = 'block';
 
             // API Call
-            document.getElementById("apiCall").innerText = data.apiCall || "-";
+            document.getElementById('apiCall').innerText = url;
 
             // Response Code
-            const statusClass = data.status >= 200 && data.status < 300 ? 'status-success' : 'status-error';
-            document.getElementById("responseCode").innerHTML = 
-                `<span class="${statusClass}">${data.status} ${data.statusText || ''}</span>\n` +
-                `Duration: ${data.duration || '-'}`;
+            const statusClass = response.ok ? 'status-success' : 'status-error';
+            document.getElementById('responseCode').innerHTML = 
+                `<span class="${statusClass}">${response.status} ${response.statusText}</span>\n` +
+                `Duration: ${duration}ms`;
 
             // Response Headers
-            document.getElementById("responseHeaders").innerText = 
-                JSON.stringify(data.headers, null, 2);
+            const headers = {};
+            response.headers.forEach((value, key) => {
+                headers[key] = value;
+            });
+            document.getElementById('responseHeaders').innerText = 
+                JSON.stringify(headers, null, 2);
 
             // Response Body
-            document.getElementById("responseBody").innerText = 
-                JSON.stringify(data.body, null, 2);
+            document.getElementById('responseBody').innerText = 
+                JSON.stringify(data, null, 2);
 
             // Scroll ke hasil
-            document.getElementById("result").scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
 
         } catch (error) {
-            alert("Terjadi kesalahan: " + error.message);
+            // Tampilkan error
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('apiCall').innerText = url;
+            document.getElementById('responseCode').innerHTML = 
+                `<span class="status-error">Error</span>\nDuration: ${Date.now() - startTime}ms`;
+            document.getElementById('responseHeaders').innerText = '-';
+            document.getElementById('responseBody').innerText = 
+                JSON.stringify({ error: error.message }, null, 2);
         } finally {
-            // Re-enable button
             btn.disabled = false;
-            btn.innerHTML = 'Show Response';
+            btn.innerHTML = '▶ Test API';
         }
     }
 </script>
