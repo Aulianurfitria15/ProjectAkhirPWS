@@ -25,4 +25,7 @@ router.get('/concerts/:id', userController.showConcertDetail);
 router.get('/api-explorer', userController.apiExplorer);
 router.post('/api-explorer/test', userController.testApiCall);
 
+// Dokumentasi API
+router.get('/documentation', userController.documentation);
+
 module.exports = router;
